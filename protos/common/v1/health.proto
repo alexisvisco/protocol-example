@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package protos.common.v1;
+option go_package = "protocol-example/gen/go/protos/common/v1;commonpb";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+message HealthRequest {}
+
+enum HealthStatus {
+  HEALTH_STATUS_UNSPECIFIED = 0;
+  // The application run normally and successfully
+  HEALTH_STATUS_SERVING = 1;
+  // An error is occurred recently and can produce more errors. One or more components in the stack might become overloaded soon.
+  HEALTH_STATUS_WARNING = 2;
+  // A partial anomaly of full outage of service. Non-security patches might be available.
+  HEALTH_STATUS_DEGRADED = 3;
+  // One or more components in the stack might be in an unusable status and the stack might become unresponsive soon. Security patches might be available.
+  HEALTH_STATUS_CRITICAL = 4;
+}
+
+/**
+ * HealthResponse Message
+ *
+ * This message is only used to respond to Health Service.
+ * This message return an enumerator of Status onf app
+ */
+message HealthResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "protos.v1.HealthResponse"
+    }
+  };
+  // Status represents the current status of the application
+  HealthStatus status = 1;
+}

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package protos.leads.v1;
+option go_package = "protocol-example/gen/go/protos/leads/v1;leadspb";
+
+message InputDescriptor {
+  InputName input_name = 1;
+  InputType input_type = 2;
+  repeated string options = 3;
+}
+
+
+message InputValue {
+  InputName input_name = 1;
+  oneof value {
+    int64 input_value_number = 100;
+    string input_value_string = 101;
+  }
+}
+
+
+// InputName represent the name of a input, it allow use to determine the i18n for the label, helper text...
+// The type of the in
+enum InputName {
+  INPUT_NAME_UNSPECIFIED = 0;
+  INPUT_NAME_AMOUNT = 1;
+  INPUT_NAME_ACCOUNT_TYPE = 2;
+}
+
+// InputType represent the type of an input
+enum InputType {
+  INPUT_TYPE_UNSPECIFIED = 0;
+  INPUT_TYPE_CURRENCY = 1; // use input_value_number
+  INPUT_TYPE_TEXT = 2; // use input_value_string
+  INPUT_TYPE_TEXT_AREA = 3; // use input_value_string
+  INPUT_TYPE_SELECT_OPTION = 4; // use input_value_string
+  INPUT_TYPE_REGION_OPTION = 5; // use input_value_string
+  INPUT_TYPE_PHONE = 6; // use input_value_string
+}

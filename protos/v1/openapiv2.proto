@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package protos.v1;
+
+option go_package = "protocol-example/gen/go/protos/v1;protospb";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Protos API";
+    version: "1.0";
+  };
+};

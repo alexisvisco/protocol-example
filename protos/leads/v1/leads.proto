@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package protos.leads.v1;
+option go_package = "protocol-example/gen/go/protos/leads/v1;leadspb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protos/common/v1/health.proto";
+import "protos/leads/v1/steps_names.proto";
+import "protos/leads/v1/input.proto";
+
+service LeadsService {
+  rpc Health(common.v1.HealthRequest) returns (common.v1.HealthResponse) {
+    option (google.api.http) = {
+      get: "/v1/leads/health"
+    };
+  };
+
+  rpc Create(CreateRequest) returns (CreateResponse) {
+    option (google.api.http) = {
+      post: "/v1/leads/create"
+      body: "*"
+    };
+  }
+
+  rpc Update(UpdateRequest) returns (UpdateResponse) {
+    option (google.api.http) = {
+      patch: "/v1/leads/update"
+      body: "*"
+    };
+  }
+
+ rpc Fetch(FetchRequest) returns (FetchResponse) {
+   option (google.api.http) = {
+     get: "/v1/leads/fetch"
+   };
+ }
+
+ rpc Previous(PreviousRequest) returns (PreviousResponse) {
+  option (google.api.http) = {
+    get: "/v1/leads/previous"
+  };
+ }
+}
+
+message CreateRequest {
+  int64 amount = 1;
+}
+
+message CreateResponse {
+  int64 lead_id = 1;
+  Progress progress = 2;
+  Step step = 3;
+}
+
+message FetchRequest {
+  int64 lead_id = 1;
+}
+
+message FetchResponse {
+  Progress progress = 1;
+  Step step = 2;
+}
+
+message UpdateRequest {
+  int64 lead_id = 1;
+  string step_name = 2;
+  repeated InputValue answers = 3;
+}
+
+message UpdateResponse {
+  Progress progress = 1;
+  Step step = 2;
+}
+
+message PreviousRequest {
+  int64 lead_id = 1;
+}
+
+message PreviousResponse {
+  Progress progress = 1;
+  Step step = 2;
+}
+
+
+// returns the all needed for each step
+// name is the step name
+// list of inputs names for the front to build
+// when filling inputs answers returns a map of inputs names with their values
+message Step {
+  string name = 1;
+  string previous_name = 2;
+  repeated InputDescriptor input_descriptors = 3;
+  repeated InputValue answers = 5;
+}
+
+// Represent the progression of a lead, primary usage is for the frontend
+// **-- ---- ---- ---- = {step_count: 4, current_step: 1, sub_step_count: 4, current_sub_step: 2}
+message Progress {
+  int32 step_count = 1;
+  int32 current_step = 2;
+  int32 sub_step_count = 3;
+  int32 current_sub_step = 4;
+}
+

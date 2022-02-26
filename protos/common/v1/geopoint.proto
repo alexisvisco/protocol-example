@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package protos.common.v1;
+option go_package = "protocol-example/gen/go/protos/common/v1;commonpb";
+
+message GeoPoint {
+  double lon = 1;
+  double lat = 2;
+}

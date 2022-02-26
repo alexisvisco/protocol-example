@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package protos.common.v1;
+option go_package = "protocol-example/gen/go/protos/common/v1;commonpb";
+
+enum ProjectType {
+  PROJECT_TYPE_UNSPECIFIED = 0; // All
+  PROJECT_TYPE_DONATION = 1; // Project::Collect::Donation
+  PROJECT_TYPE_LENDING = 2; // Project::Collect::Lending
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package protos.common.v1;
+option go_package = "protocol-example/gen/go/protos/common/v1;commonpb";
+
+enum ProjectState {
+  PROJECT_STATE_UNSPECIFIED = 0;
+  PROJECT_STATE_PENDING = 1;
+  PROJECT_STATE_FUNDED = 2;
+  PROJECT_STATE_WAITING_FOR_VALIDATION = 3;
+  PROJECT_STATE_PUBLISHED = 4;
+  PROJECT_STATE_CREATED = 5;
+  PROJECT_STATE_WAITING_FOR_APPROVAL = 6;
+  PROJECT_STATE_FAILED = 7;
+}

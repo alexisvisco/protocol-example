@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package protos.dummy.v1;
+option go_package = "protocol-example/gen/go/protos/dummy/v1;dummypb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protos/common/v1/health.proto";
+
+message LogRequest {
+  string name = 1;
+
+  enum LogLevel {
+    LOG_LEVEL_UNSPECIFIED = 0;
+    LOG_LEVEL_DEBUG = 1;
+    LOG_LEVEL_INFO = 2;
+    LOG_LEVEL_WARN = 3;
+    LOG_LEVEL_ERROR = 4;
+    LOG_LEVEL_FATAL = 5;
+    LOG_LEVEL_PANIC = 6;
+    LOG_LEVEL_NO = 7;
+    LOG_LEVEL_DIS = 8;
+    LOG_LEVEL_TRACE = 9;
+  }
+
+  LogLevel level = 2;
+}
+
+message LogResponse {
+  string response = 1;
+}
+
+service DummyService {
+
+   /**
+   * The primary usage of this endpoint is for the Kubernetes probes
+   * (readinessProbe, liveProbe, startupProbe) and responds without
+   * any authentication or authorization
+   */
+  rpc Health(common.v1.HealthRequest) returns (common.v1.HealthResponse) {
+    option (google.api.http) = {
+      get: "/v1/dummy/health"
+    };
+  };
+
+  rpc Log(LogRequest) returns (LogResponse) {
+    option (google.api.http) = {
+      post: "/v1/dummy/log"
+      body: "*"
+    };
+  }
+}

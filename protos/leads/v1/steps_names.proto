@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package protos.leads.v1;
+option go_package = "protocol-example/gen/go/protos/leads/v1;leadspb";
+
+// StepName represent the different step names
+enum StepName {
+  STEP_NAME_UNSPECIFIED = 0;
+  STEP_NAME_COLLECT_TYPE = 1;
+}
