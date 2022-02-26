@@ -12,6 +12,4 @@ generate: build-docker-image
 	rm -rf gen && mkdir gen
 	$(EXEC) "buf generate --template buf.gen.yaml \
 && buf build --as-file-descriptor-set -o gen/descriptor.json \
-&& chmod 777 -R gen \
-&& go run scripts/api-overload.go "
-	git add gen/
+&& chmod 777 -R gen"
