@@ -1,0 +1,13 @@
+version: v1
+plugins:
+  - name: go
+    out: gen/go
+    opt: paths=source_relative
+  - name: twirp
+    out: gen/go
+    opt: paths=source_relative
+  - name: protoc-gen-twirpscript # if you comment this 3 lines, the generation will work nicely
+    path: /usr/lib/node_modules/twirpscript/dist/compiler.js
+    out: gen/ts
+#    strategy: all
+

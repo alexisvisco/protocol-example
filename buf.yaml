@@ -1,0 +1,23 @@
+version: v1beta1
+name: buf.build/protos/protobufs
+deps:
+  - buf.build/beta/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+build:
+  roots:
+    - .
+lint:
+  enum_zero_value_suffix: UNSPECIFIED
+  use:
+    - STYLE_DEFAULT
+    - FILE_LOWER_SNAKE_CASE
+  except:
+    - RPC_REQUEST_RESPONSE_UNIQUE
+    - ENUM_NO_ALLOW_ALIAS
+  ignore_only:
+    FILE_LOWER_SNAKE_CASE:
+      - protos/v1/_openapiv2.proto
+
+breaking:
+  use:
+    - FILE
