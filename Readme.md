@@ -3,6 +3,6 @@
 Prerequisite : docker  
 
 Run :
-```http
+```bash
 make run
 ```
