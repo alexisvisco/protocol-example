@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": ["es2018", "esnext"],
+    "module": "commonjs",
+    "strict": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "declaration": true,
+  },
+  "include": ["gen/ts/protos"]
+}

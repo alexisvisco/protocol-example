@@ -8,7 +8,7 @@ build-docker-image:
 	docker build --build-arg buf_version=$(BUF_VERSION) --platform linux/amd64 -t $(IMG_NAME) .
 
 
-generate: build-docker-image
+run: build-docker-image
 	rm -rf gen && mkdir gen
 	$(EXEC) "buf generate --template buf.gen.yaml \
 && buf build --as-file-descriptor-set -o gen/descriptor.json \

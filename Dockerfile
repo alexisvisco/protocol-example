@@ -12,6 +12,8 @@ RUN mv buf-Linux-x86_64 buf && chmod 777 buf && mv buf /bin/buf
 
 RUN npm install -g twirpscript
 
+COPY compile.js /usr/lib/node_modules/twirpscript/dist/compile.js
+
 
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 
