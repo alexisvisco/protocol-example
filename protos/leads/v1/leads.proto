@@ -9,7 +9,6 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "protos/common/v1/health.proto";
 import "protos/common/v1/term_frequency.proto";
 import "protos/leads/v1/steps_names.proto";
-import "protos/leads/v1/input.proto";
 
 service LeadsService {
   rpc Health(common.v1.HealthRequest) returns (common.v1.HealthResponse) {
@@ -45,8 +44,30 @@ service LeadsService {
  }
 }
 
+message LoanPlanTerm {
+  double amount = 1;
+  double amortized_capital_amount = 2;
+  double interest_amount = 3;
+  double capital_amount = 4;
+  double outstanding_capital_amount = 5; // capital restant dû
+  int32 index = 6;
+}
+
+
+
+message LenderLoanPlanTerm {
+  LoanPlanTerm term = 1;
+  double intercallary_interest_amount = 2;
+  string scheduled_at = 3; // Format YYYY-MM-DD
+}
+
+message LenderLoanPlan {
+  repeated LenderLoanPlanTerm lender_loan_plan_terms = 1;
+}
+
 message CreateRequest {
   int64 amount = 1;
+  map<int32, LenderLoanPlan> lender_plans = 2;
 }
 
 message CreateResponse {
@@ -67,7 +88,6 @@ message FetchResponse {
 message UpdateRequest {
   int64 lead_id = 1;
   string step_name = 2;
-  repeated InputValue answers = 3;
 }
 
 message UpdateResponse {
@@ -82,7 +102,7 @@ message PreviousRequest {
 message PreviousResponse {
   Progress progress = 1;
   Step step = 2;
-  common.v1.TermFrequency term_frequency = 3;
+
 }
 
 
@@ -93,8 +113,6 @@ message PreviousResponse {
 message Step {
   string name = 1;
   string previous_name = 2;
-  repeated InputDescriptor input_descriptors = 3;
-  repeated InputValue answers = 5;
 }
 
 // Represent the progression of a lead, primary usage is for the frontend
