@@ -11,5 +11,6 @@ plugins:
     out: gen/ts
     opt:
       - language=typescript
+#      - typescript=emitDeclarationOnly
     strategy: all
 

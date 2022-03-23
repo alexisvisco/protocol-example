@@ -10,9 +10,9 @@ COPY --from=golang:1.17.6-alpine3.15 /usr/local/go/ /usr/local/go/
 
 RUN mv buf-Linux-x86_64 buf && chmod 777 buf && mv buf /bin/buf
 
-RUN npm install -g twirpscript
+RUN npm install -g twirpscript@0.0.50
 
-COPY compile.js /usr/lib/node_modules/twirpscript/dist/compile.js
+#COPY compile.js /usr/lib/node_modules/twirpscript/dist/compile.js
 
 
 ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
